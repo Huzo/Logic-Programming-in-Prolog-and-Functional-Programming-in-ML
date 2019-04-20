@@ -33,7 +33,7 @@ multiple(X,Y) :- X=s(_), Y=s(_), geq(Y,X), difference(Y,X,D), multiple(X,D).
 % bt(a,bt(nil,b,d),bt(c,bt(f,e,g),nil).
 
 % 2.b Rules
-btMember(E,bt(E,L,R)).
-btMember(E,bt(Rt,L,R)) :- btMember(E,L).
-btMember(E,bt(Rt,L,R)) :- btMember(E,R).
+btMember(E,bt(E,_L,_R)).
+btMember(E,bt(_Rt,L,_R)) :- btMember(E,L).
+btMember(E,bt(_Rt,_L,R)) :- btMember(E,R).
 isTree(Term) :- btMember(Term, bt(_,_,_)).
