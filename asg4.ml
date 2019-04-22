@@ -25,3 +25,5 @@ fun sumCards(l:(suit*rank) list, c:color):int =
         if null(l) then 0
         else if cardColor(hd(l)) = c then cardValue(hd(l)) + sumCards(tl(l),c)
         else sumCards(tl(l),c);
+
+fun score(l:(suit*rank) list) = abs(sumCards(l,Red) - sumCards(l,Black)) + (6 - length(l));
