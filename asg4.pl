@@ -30,17 +30,16 @@ multiple(X,0) :- X=s(_).
 multiple(X,Y) :- X=s(_), Y=s(_), geq(Y,X), difference(Y,X,D), multiple(X,D).
 
 % 2.a Rules
-% bt(a,bt(nil,b,d),bt(c,bt(f,e,g),nil).
+% bt(a,bt(b,nil,bt(d,nil,nil)),bt(c,bt(e,bt(f,nil,nil),bt(g,nil,nil)),nil)).
 
 % 2.b Rules
 isTree(nil).
 isTree(bt(_E,nil,nil)).
-isTree(bt(_E,_L,nil)).
-isTree(bt(_E,nil,_R)).
+isTree(bt(_E,L,nil)) :- isTree(L).
+isTree(bt(_E,nil,R)) :- isTree(R).
 isTree(bt(_E,L,R)) :- isTree(L), isTree(R).
 
 % 2.c Rules
-btMember(E,bt(E,_L,_R)).
-btMember(E,bt(_Rt,L,_R)) :- btMember(E,L).
-btMember(E,bt(_Rt,_L,R)) :- btMember(E,R).
-isLeaf(X,bt(E,L,R)) :- btMember(X,bt(E,L,R)), btMember(_A,X)=false.
+isLeaf(E,bt(E,nil,nil)).
+isLeaf(E,bt(Rt,L,R)) :- isTree(bt(Rt,L,R)),isLeaf(E,L).
+isLeaf(E,bt(Rt,L,R)) :- isTree(bt(Rt,L,R)),isLeaf(E,R).
