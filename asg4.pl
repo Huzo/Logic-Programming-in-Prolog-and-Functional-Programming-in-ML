@@ -43,3 +43,13 @@ isTree(bt(_E,L,R)) :- isTree(L), isTree(R).
 isLeaf(E,bt(E,nil,nil)).
 isLeaf(E,bt(Rt,L,R)) :- isTree(bt(Rt,L,R)),isLeaf(E,L).
 isLeaf(E,bt(Rt,L,R)) :- isTree(bt(Rt,L,R)),isLeaf(E,R).
+
+% 2.d Rules
+numberOfLeaf(nil,N) :- N=0.
+numberOfLeaf(bt(E,nil,nil),N) :- isTree(bt(E,nil,nil)), N=s(0).
+numberOfLeaf(bt(Rt,L,R),N) :- isTree(bt(Rt,L,R)), numberOfLeaf(L,LN), numberOfLeaf(R,RN), sum(LN,RN,N).
+
+% 2.e Rules
+height(nil,N) :- N=0.
+height(bt(_Rt,nil,nil),N) :- N=s(0).
+height(bt(Rt,L,R),N) :- isTree(bt(Rt,L,R)), height(L,LH), height(R,RH), max(RH,LH,M), sum(s(0),M,N).
