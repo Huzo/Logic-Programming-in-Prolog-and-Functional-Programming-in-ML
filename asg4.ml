@@ -27,3 +27,9 @@ fun sumCards(l:(suit*rank) list, c:color):int =
         else sumCards(tl(l),c);
 
 fun score(l:(suit*rank) list) = abs(sumCards(l,Red) - sumCards(l,Black)) + (6 - length(l));
+
+fun runGame(d:(suit*rank) list,m:move list)) = runGame(d,m,[]);
+fun runGame([] ,m:move list,l:(suit*rank) list):int = score(l)
+|   runGame(d:(suit*rank) list,[],l:(suit*rank) list):int = score(l)
+|   runGame(d:(suit*rank) list,Draw::_,l:(suit*rank) list):int = runGame(tl(d), tl(m), hd(m)::l)
+|   runGame(d:(suit*rank) list,Discard (x,y)::_,l:(suit*rank) list):int = runGame(d,tl(m),removeCard(l,x,y));
