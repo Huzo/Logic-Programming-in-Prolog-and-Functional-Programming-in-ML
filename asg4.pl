@@ -34,9 +34,6 @@ multiple(X,Y) :- X=s(_), Y=s(_), geq(Y,X), difference(Y,X,D), multiple(X,D).
 
 % 2.b Rules
 isTree(nil).
-isTree(bt(_E,nil,nil)).
-isTree(bt(_E,L,nil)) :- isTree(L).
-isTree(bt(_E,nil,R)) :- isTree(R).
 isTree(bt(_E,L,R)) :- isTree(L), isTree(R).
 
 % 2.c Rules
