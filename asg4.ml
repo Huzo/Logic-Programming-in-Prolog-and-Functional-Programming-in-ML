@@ -28,7 +28,16 @@ fun sumCards(l:(suit*rank) list, c:color):int =
 
 fun score(l:(suit*rank) list) = abs(sumCards(l,Red) - sumCards(l,Black)) + (6 - length(l));
 
-fun runGame([],mvList) = 0
-|   runGame(deck,[]) = 0
-|   runGame(deck,Discard (x,y)::mvList) = runGame(removeCard(deck,x,y),mvList) - score((x,y)::nil)
-|   runGame(deck,Draw::mvList) = score(hd(deck)::nil) + runGame(tl(deck),mvList);
+fun runGame(deck,mvList) =
+            let
+                    fun runGameA([],Draw,mvList,hand) = score(hand)
+                    |   runGameA(deck,Draw,mvList,hand) =
+                                if length(hd(deck)::hand) > 5 orelse null(mvList) then score(hd(deck)::hand)
+                                else runGameA(tl(deck),hd(mvList),tl(mvList),hd(deck)::hand)
+                    |   runGameA(deck,Discard (x,y),mvList,hand) =
+                                if null(mvList) then score(removeCard(hand,x,y))
+                                else runGameA(deck,hd(mvList),tl(mvList),removeCard(hand,x,y))
+
+            in
+                    runGameA(deck,hd(mvList),tl(mvList),[])
+            end;
