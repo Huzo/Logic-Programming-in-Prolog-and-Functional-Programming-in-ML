@@ -36,6 +36,7 @@ is equal toZ.
     are depicted by circles with values written inside. Empty binary trees are not shown in the
     diagram.
 
+![](https://github.com/Huzo/Logic-Programming-in-Prolog-and-Functional-Programming-in-ML/blob/master/figure1.png)
 ```
 Figure 1: An example of binary tree
 ```
